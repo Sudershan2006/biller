@@ -1,20 +1,21 @@
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow,ipcMain } = require('electron');
 const path = require('path');
+const axios = require('axios');
 
-// Handle creating/removing shortcuts on Windows when installing/uninstalling.
+
 if (require('electron-squirrel-startup')) {
   app.quit();
 }
 
 const createWindow = () => {
-  // Create the browser window.
+
   const startUrl = process.env.ELECTRON_START_URL || 'http://localhost:3000';
   const mainWindow = new BrowserWindow({
     width: 1920,
     height: 1080,
     webPreferences: {
-      preload: path.join(__dirname, '..','..' ,'src', 'preload.js'),
-      nodeIntegration: true
+      preload: path.join(__dirname,'..','renderer','main_window','preload.js'),
+      nodeIntegration: false
     },
     autoHideMenuBar:true,
     contextIsolation: true,
@@ -23,6 +24,29 @@ const createWindow = () => {
 
   // and load the index.html of the app.
   mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
+
+  ipcMain.handle('fetch-data', async (event, url) => {
+    try {
+        const response = await axios.get(url);
+        return response.data;
+    } catch (error) {
+        console.error("Error fetching data:", error);
+        throw new Error("Failed to fetch data"); 
+    }
+  });
+
+  ipcMain.handle('post-data', async (event, url, data) => {
+    try {
+        const response = await axios.post(url,data);
+        return response.ok;
+    } catch (error) {
+        console.error("Error posting data:", error);
+        throw new Error("Failed to post data");
+    }
+  });
+  
+  
+ 
 
   // mainWindow.webContents.session.webRequest.onBeforeSendHeaders((details,callback)=>{
   //   callback({
