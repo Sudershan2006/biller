@@ -1,47 +1,57 @@
 {
-  "name": "cptn.biller",
-  "productName": "cptn.biller",
+  "name": "cptn.biller2.0",
   "version": "1.0.0",
-  "description": "My Electron application description",
-  "main": ".webpack/main",
-  "proxy": "http://localhost:5000",
+  "main": "main.js",
   "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "electron-forge start",
+    "dev:watch": "npx electronmon --trace-warnings .",
     "package": "electron-forge package",
-    "make": "electron-forge make",
-    "publish": "electron-forge publish",
-    "lint": "echo \"No linting configured\"",
-    "build": "electron-packager . MyElectronApp --platform=win32 --arch=x64 --out=build/"
+    "make": "electron-forge make --trace-deprecation .",
+    "trace": "npx electron --trace-deprecation ."
+  },
+  "author": "Sudershan",
+  "license": "ISC",
+  "description": "This is a billing software",
+  "keywords": [
+    "electron",
+    "reactjs",
+    "typescript"
+  ],
+  "dependencies": {
+    "axios": "^1.7.9",
+    "electron-squirrel-startup": "^1.0.1",
+    "nvm": "^0.0.4"
   },
   "devDependencies": {
-    "@electron-forge/cli": "^7.5.0",
-    "@electron-forge/maker-deb": "^7.5.0",
-    "@electron-forge/maker-rpm": "^7.5.0",
-    "@electron-forge/maker-squirrel": "^7.5.0",
-    "@electron-forge/maker-zip": "^7.5.0",
-    "@electron-forge/plugin-auto-unpack-natives": "^7.5.0",
-    "@electron-forge/plugin-fuses": "^7.5.0",
-    "@electron-forge/plugin-webpack": "^7.5.0",
+    "@electron-forge/cli": "^7.6.0",
+    "@electron-forge/maker-deb": "^7.6.0",
+    "@electron-forge/maker-rpm": "^7.6.0",
+    "@electron-forge/maker-squirrel": "^7.6.0",
+    "@electron-forge/maker-zip": "^7.6.0",
+    "@electron-forge/plugin-auto-unpack-natives": "^7.6.0",
+    "@electron-forge/plugin-fuses": "^7.6.0",
     "@electron/fuses": "^1.8.0",
-    "@vercel/webpack-asset-relocator-loader": "^1.7.3",
-    "css-loader": "^6.11.0",
-    "electron": "33.0.2",
-    "electron-packager": "^17.1.2",
-    "node-loader": "^2.0.0",
-    "style-loader": "^3.3.4"
+    "electron": "^33.2.1"
   },
-  "keywords": [],
-  "author": {
-    "name": "Sudershan",
-    "email": "150989861+Sudershan2006@users.noreply.github.com"
+  "config": {
+    "forge": {
+      "packagerConfig": {},
+      "makers": [
+        {
+          "name": "@electron-forge/maker-squirrel",
+          "config": {}
+        },
+        {
+          "name": "@electron-forge/maker-zip",
+          "platforms": [
+            "darwin"
+          ]
+        }
+      ]
+    }
   },
-  "license": "MIT",
-  "dependencies": {
-    "@emotion/react": "^11.13.3",
-    "@emotion/styled": "^11.13.0",
-    "@mui/material": "^6.1.6",
-    "axios": "^1.7.7",
-    "electron-squirrel-startup": "^1.0.1",
-    "react-router-dom": "^6.27.0"
-  }
+  "files": [
+    "D:/Billing/billing-backend/index.js"
+  ]
 }
